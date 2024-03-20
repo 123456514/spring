@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--    1.导入spring的坐标-->
+<!--    2.配置对象的bean-->
+<!--    bean 标签表示配置bean-->
+<!--    id属性表示的是给bean起名字-->
+<!--    class属性表示的是对应的对象所在的目录-->
+    <bean id="bookDao" class="org.example.dao.impl.BookDaoImpl"/>
+<!--    name 使用 name 起别名-->
+<!--    scope 控制的是 bean 创建的时候 创建的数量-->
+    <bean id="bookService" name="service" class="org.example.service.impl.BookServiceImpl" scope="prototype">
+        <property name="bookDao" ref="bookDao"/>
+    </bean>
+    <bean id="orderDao" class="org.example.factory.OrderFactory" factory-method="getOrderBean"/>
+    <bean id="userFactory" class="org.example.factory.UserFactory"/>
+    <bean id="userDao" factory-method="getUserDaoBean" factory-bean="userFactory"/>
+</beans>
